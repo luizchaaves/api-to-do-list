@@ -66,3 +66,23 @@ export const removeTask = async (request: Request, response: Response) => {
   }
   return response.status(404).json({ message: 'Tarefa não encontrada' });
 };
+
+export const finishedTasks = async (resquest: Request, response: Response) => {
+  const tasks = await AppDataSource.getRepository(Tasks).find({
+    where: { finished: true },
+  });
+  if (tasks) {
+    return response.json({ tasks, length: tasks.length });
+  }
+  return response.status(404).json({ message: 'Nenhuma tarefa finalizada' });
+};
+
+export const openedTasks = async (resquest: Request, response: Response) => {
+  const tasks = await AppDataSource.getRepository(Tasks).find({
+    where: { finished: false },
+  });
+  if (tasks) {
+    return response.json({ tasks, length: tasks.length });
+  }
+  return response.status(404).json({ message: 'Nenhuma tarefa finalizada' });
+};
