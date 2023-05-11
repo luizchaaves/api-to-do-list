@@ -51,7 +51,19 @@ export const finishedTask = async (request: Request, response: Response) => {
     const taskUpdated = await AppDataSource.getRepository(Tasks).findOne({
       where: { id },
     });
-    return response.json({ message: 'Tarefa finalizada' });
+    return response.json({ message: 'Tarefa finalizada com sucesso' });
+  }
+  return response.status(404).json({ message: 'Tarefa não encontrada' });
+};
+
+export const removeTask = async (request: Request, response: Response) => {
+  const { id } = request.params;
+  const task = await AppDataSource.getRepository(Tasks).delete(id);
+  if (task.affected === 1) {
+    const taskUpdated = await AppDataSource.getRepository(Tasks).findOne({
+      where: { id },
+    });
+    return response.json({ message: 'Tarefa apagada com sucesso' });
   }
   return response.status(404).json({ message: 'Tarefa não encontrada' });
 };
