@@ -4,6 +4,7 @@ import {
   saveTask,
   getTask,
   updateTask,
+  finishedTask,
 } from './controller/TasksController';
 
 const routes = Router();
@@ -16,5 +17,6 @@ routes.get('/tasks', getTasks);
 routes.get('/tasks/:id', getTask);
 routes.post('/tasks', saveTask);
 routes.put('/tasks/:id', updateTask);
+routes.patch('/tasks/:id', finishedTask);
 
 export default routes;
