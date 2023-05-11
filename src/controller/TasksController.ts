@@ -7,6 +7,14 @@ export const getTasks = async (resquest: Request, response: Response) => {
   return response.json(tasks);
 };
 
+export const getTask = async (request: Request, response: Response) => {
+  const { id } = request.params;
+  const task = await AppDataSource.getRepository(Tasks).findOne({
+    where: { id },
+  });
+  return response.json(task);
+};
+
 export const saveTask = async (request: Request, response: Response) => {
   const task = await AppDataSource.getRepository(Tasks).save(request.body);
   return response.json(task);
