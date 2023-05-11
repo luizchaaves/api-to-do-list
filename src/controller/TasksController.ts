@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 export const getTasks = async (resquest: Request, response: Response) => {
   const tasks = await AppDataSource.getRepository(Tasks).find();
   if (tasks) {
-    return response.json(tasks);
+    return response.json({ tasks, length: tasks.length });
   }
   return response.status(404).json({ message: 'Nenhuma tarefa cadastrada' });
 };
