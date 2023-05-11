@@ -1,7 +1,6 @@
 import { AppDataSource } from '../data-source';
 import { Tasks } from '../entity/Tasks';
 import { Request, Response } from 'express';
-import { finished } from 'stream';
 
 export const getTasks = async (resquest: Request, response: Response) => {
   const tasks = await AppDataSource.getRepository(Tasks).find();
@@ -22,9 +21,9 @@ export const getTask = async (request: Request, response: Response) => {
   return response.status(404).json({ message: 'Tarefa não encontrada' });
 };
 
-export const saveTask = async (request: Request, response: Response) => {
+export const createTask = async (request: Request, response: Response) => {
   const task = await AppDataSource.getRepository(Tasks).save(request.body);
-  return response.json(task);
+  return response.json({ task, message: 'Tarefa criada com sucesso' });
 };
 
 export const updateTask = async (request: Request, response: Response) => {

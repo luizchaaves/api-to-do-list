@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import {
   getTasks,
-  saveTask,
+  createTask,
   getTask,
   updateTask,
   finishedTask,
@@ -16,7 +16,7 @@ routes.get('/', (request: Request, response: Response) => {
 
 routes.get('/tasks', getTasks);
 routes.get('/tasks/:id', getTask);
-routes.post('/tasks', saveTask);
+routes.post('/tasks', createTask);
 routes.put('/tasks/:id', updateTask);
 routes.patch('/tasks/:id', finishedTask);
 routes.delete('/tasks/:id', removeTask);
