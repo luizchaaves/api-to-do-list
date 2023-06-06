@@ -11,7 +11,9 @@
     "typescript": "4.5.2"
   },
   "dependencies": {
+    "@types/cors": "^2.8.13",
     "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",

@@ -3,7 +3,10 @@ import { Tasks } from '../entity/Tasks';
 import { Request, Response } from 'express';
 
 export const getTasks = async (resquest: Request, response: Response) => {
-  const tasks = await AppDataSource.getRepository(Tasks).find();
+  const tasks = await AppDataSource.getRepository(Tasks)
+    .createQueryBuilder('tasks')
+    .orderBy('tasks.created_at', 'DESC')
+    .getMany();
   if (tasks) {
     return response.json({ tasks, length: tasks.length });
   }
@@ -43,14 +46,15 @@ export const updateTask = async (request: Request, response: Response) => {
 
 export const finishedTask = async (request: Request, response: Response) => {
   const { id } = request.params;
-  const task = await AppDataSource.getRepository(Tasks).update(id, {
-    finished: true,
+  const repository = AppDataSource.getRepository(Tasks);
+  const task = await repository.findOne({
+    where: { id },
   });
-  if (task.affected === 1) {
-    const taskUpdated = await AppDataSource.getRepository(Tasks).findOne({
-      where: { id },
-    });
-    return response.json({ message: 'Tarefa finalizada com sucesso' });
+
+  if (task) {
+    task.finished = !task.finished;
+    await repository.save(task);
+    return response.json({ message: 'Status da tarefa alterado com sucesso' });
   }
   return response.status(404).json({ message: 'Tarefa não encontrada' });
 };
