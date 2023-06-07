@@ -90,3 +90,18 @@ export const openedTasks = async (resquest: Request, response: Response) => {
   }
   return response.status(404).json({ message: 'Nenhuma tarefa finalizada' });
 };
+
+export const countTasks = async (request: Request, response: Response) => {
+  const countAllTasks = await AppDataSource.getRepository(Tasks).count();
+  const countOpenedTasks = await AppDataSource.getRepository(Tasks).count({
+    where: { finished: false },
+  });
+  const countFinishedTasks = await AppDataSource.getRepository(Tasks).count({
+    where: { finished: true },
+  });
+  return response.json({
+    AllTasks: countAllTasks,
+    OpenedTasks: countOpenedTasks,
+    FinishedTasks: countFinishedTasks,
+  });
+};
