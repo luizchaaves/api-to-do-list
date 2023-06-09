@@ -10,13 +10,13 @@ export class Tasks {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   title: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   description: string;
 
-  @Column({ default: false })
+  @Column({ type: 'boolean', default: false })
   finished: boolean;
 
   @CreateDateColumn()
