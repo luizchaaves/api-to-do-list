@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   port: 5432,
   username: 'db_todo_3ei8_user',
   password: process.env.DB_PASSWORD,
-  database: 'db_todo_3ei8',
+  database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
   entities: [Tasks],
