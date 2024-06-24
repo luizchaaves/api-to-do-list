@@ -16,7 +16,8 @@ export const getTasks = async (resquest: Request, response: Response) => {
 export const getTask = async (request: Request, response: Response) => {
   const { id } = request.params;
   const task = await AppDataSource.getRepository(Tasks).findOne({
-    where: { id },
+    text: 'SELECT * FROM tasks WHERE id = $1',
+    values: [id],
   });
   if (task) {
     return response.json(task);
