@@ -21,7 +21,6 @@ AppDataSource.initialize()
     app.use(bodyParser.json());
     app.use(routes);
 
-    // app.listen(3333);
     server.listen(port);
 
     cron.schedule('*/10 * * * *', async () => {
